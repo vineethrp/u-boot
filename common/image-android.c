@@ -155,6 +155,8 @@ ulong android_image_get_kcomp(const struct andr_img_hdr *hdr)
 		return image_get_comp((image_header_t *)p);
 	else if (get_unaligned_le32(p) == LZ4F_MAGIC)
 		return IH_COMP_LZ4;
+	else if (get_unaligned_le16(p) == LGZIP_MAGIC)
+		return IH_COMP_GZIP;
 	else
 		return IH_COMP_NONE;
 }

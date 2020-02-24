@@ -200,15 +200,16 @@ int env_load(void)
 		 */
 		ret = drv->load();
 		if (!ret) {
-			printf("OK\n");
+			printf("OK");
 			return 0;
 		} else if (ret == -ENOMSG) {
 			/* Handle "bad CRC" case */
 			if (best_prio == -1)
 				best_prio = prio;
 		} else {
-			debug("Failed (%d)\n", ret);
+			debug("Failed (%d)", ret);
 		}
+                printf("\n");
 	}
 
 	/*

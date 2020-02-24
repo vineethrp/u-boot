@@ -312,6 +312,7 @@ enum {
 	IH_COMP_COUNT,
 };
 
+#define LGZIP_MAGIC     0x8B1F          /* GZIP Magic Number            */
 #define LZ4F_MAGIC	0x184D2204	/* LZ4 Magic Number		*/
 #define IH_MAGIC	0x27051956	/* Image Magic Number		*/
 #define IH_NMLEN		32	/* Image Name Length		*/

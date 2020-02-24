@@ -472,17 +472,19 @@ int boot_get_fdt(int flag, int argc, char * const argv[], uint8_t arch,
 				goto error;
 
 			debug("## Using FDT in Android image second area\n");
-		} else {
-			fdt_addr = env_get_hex("fdtaddr", 0);
-			if (!fdt_addr)
-				goto no_fdt;
-
+		} else if ((fdt_addr = env_get_hex("fdtaddr", 0)) != NULL) {
 			fdt_blob = map_sysmem(fdt_addr, 0);
 			if (fdt_check_header(fdt_blob))
 				goto no_fdt;
 
 			debug("## Using FDT at ${fdtaddr}=Ox%lx\n", fdt_addr);
+                } else if (android_image_get_dtb_by_index((ulong)hdr, 0, &fdt_data, NULL)) {
+			fdt_blob = (char *)fdt_data;
+			debug("## Using FDT in Android image dtb area\n");
+		} else {
+			goto no_fdt;
 		}
+
 #endif
 	} else {
 		debug("## No Flattened Device Tree\n");
